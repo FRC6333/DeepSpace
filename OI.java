@@ -94,11 +94,11 @@ public class OI {
         wristDownButton.whileHeld(new WristDown());
         wristUpButton = new JoystickButton(debugJoy, 5);
         wristUpButton.whileHeld(new WristUp());
-        elbowDownButton = new JoystickButton(debugJoy, 4);
+        elbowDownButton = new JoystickButton(debugJoy, 2);
         elbowDownButton.whileHeld(new ElbowDown());
-        elbowUpButton = new JoystickButton(debugJoy, 3);
+        elbowUpButton = new JoystickButton(debugJoy, 4);
         elbowUpButton.whileHeld(new ElbowUp());
-        shoulderDownButton = new JoystickButton(debugJoy, 2);
+        shoulderDownButton = new JoystickButton(debugJoy, 3);
         shoulderDownButton.whileHeld(new ShoulderDown());
         sholuderUpButton = new JoystickButton(debugJoy, 1);
         sholuderUpButton.whileHeld(new ShoulderUp());

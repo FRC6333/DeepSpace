@@ -120,6 +120,7 @@ public class DriveTain extends Subsystem {
         Zaxis = stick.getZ();
 
         mecanumDrive.driveCartesian(-Xaxis, Yaxis, Zaxis);
+        // mecanumDrive.driveCartesian(-Xaxis, Yaxis, Zaxis, gyro);
     }
 
     public void stop(){

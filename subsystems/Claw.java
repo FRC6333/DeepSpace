@@ -68,6 +68,14 @@ public class Claw extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
+    public void moveFingers(double speed){
+        fingers.set(speed);
+    }
+
+    public void stopFingers(){
+        fingers.set(0);
+    }
+    
     @Override
     public void periodic() {
         // Put code here to be run every loop

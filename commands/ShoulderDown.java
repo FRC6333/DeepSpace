@@ -43,17 +43,24 @@ public class ShoulderDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        Robot.arm.moveShoulder(-0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        if(!OI.shoulderDownButton.get()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.arm.stopShoulder();
     }
 
     // Called when another command which requires one or more of the same

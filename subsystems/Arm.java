@@ -89,6 +89,30 @@ public class Arm extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
+    public void moveShoulder(double speed){
+        shoulder.set(speed);
+    }
+
+    public void moveWrist(double speed){
+        shoulder.set(speed);
+    }
+    
+    public void moveElbow(double speed){
+        shoulder.set(speed);
+    }
+
+    public void stopShoulder(){
+        shoulder.set(0);
+    }
+
+    public void stopElbow(){
+        elbow.set(0);
+    }
+
+    public void stopWrist(){
+        wrist.set(0);
+    }
+
     @Override
     public void periodic() {
         // Put code here to be run every loop
