@@ -4,6 +4,6 @@
 
 First Robotics Competition Team 6333's code for the 2019 Deep Space game.
 
-This defines the behaviors of our robot <name not decided> that is its drive train, arm, and claw, along with the vision system.
+This defines the behaviors of our robot <name not decided>. That is, its drive train, arm, and claw, along with it's vision system.
   
 This is written in Java with the First/WPI libraries.
