@@ -49,7 +49,7 @@ public class FingersOpen extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(!OI.fingersOpenButton.get()){
+        if(!Robot.operatorInterface.fingersOpenButton.get()){
             return true;
         }
         else{

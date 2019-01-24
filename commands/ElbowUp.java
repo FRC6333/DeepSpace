@@ -12,7 +12,6 @@
 package org.usfirst.frc6333.DeepSpace.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
-import org.usfirst.frc6333.DeepSpace.OI;
 import org.usfirst.frc6333.DeepSpace.Robot;
 
 /**
@@ -51,7 +50,7 @@ public class ElbowUp extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(!OI.elbowUpButton.get()){
+        if(!Robot.operatorInterface.elbowUpButton.get()){
             return true;
         }
         else{

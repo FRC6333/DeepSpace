@@ -49,7 +49,7 @@ public class ShoulderUp extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(!OI.shoulderUpButton.get()){
+        if(!Robot.operatorInterface.sholuderUpButton.get()){
             return true;
         }
         else{
