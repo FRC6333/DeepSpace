@@ -12,6 +12,7 @@
 package org.usfirst.frc6333.DeepSpace.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc6333.DeepSpace.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -43,7 +44,8 @@ public class ElbowDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.arm.moveElbow(-0.5);
+        Robot.arm.moveElbow(-0.333);
+        SmartDashboard.putBoolean("ELBOW DONW HIT!", true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -61,6 +63,7 @@ public class ElbowDown extends Command {
     @Override
     protected void end() {
         Robot.arm.stopElbow();
+        SmartDashboard.putBoolean("ELBOW DONW HIT!", false);
     }
 
     // Called when another command which requires one or more of the same

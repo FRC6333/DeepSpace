@@ -121,7 +121,7 @@ public class DriveTrain extends Subsystem {
         Yaxis = stick.getY();
         Zaxis = stick.getZ();
 
-        mecanumDrive.driveCartesian(-Xaxis, Yaxis, Zaxis/4);
+        mecanumDrive.driveCartesian(Xaxis, -Yaxis, Zaxis/4);
         // mecanumDrive.driveCartesian(-Xaxis, Yaxis, Zaxis, gyro);
     }
 

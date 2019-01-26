@@ -90,15 +90,15 @@ public class Arm extends Subsystem {
     }
 
     public void moveShoulder(double speed){
-        shoulder.set(speed/3);
+        shoulder.set(speed);
     }
 
     public void moveWrist(double speed){
-        shoulder.set(speed/3);
+        wrist.set(speed);
     }
     
     public void moveElbow(double speed){
-        shoulder.set(speed/3);
+        elbow.set(speed);
     }
 
     public void stopShoulder(){

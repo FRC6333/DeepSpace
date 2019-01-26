@@ -43,7 +43,7 @@ public class ShoulderDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.arm.moveShoulder(-0.5);
+        Robot.arm.moveShoulder(-0.333);
     }
 
     // Make this return true when this Command no longer needs to run execute()

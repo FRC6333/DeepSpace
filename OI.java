@@ -86,21 +86,22 @@ public class OI {
 
         debugJoy = new Joystick(2);
         fingersCloseButton = new JoystickButton(debugJoy, 1);
-        fingersCloseButton.whileHeld(new FingersClose());
+        fingersCloseButton.whenPressed(new FingersClose());
         fingersOpenButton = new JoystickButton(debugJoy, 2);
-        fingersOpenButton.whileHeld(new FingersOpen());
+        fingersOpenButton.whenPressed(new FingersOpen());
         wristDownButton = new JoystickButton(debugJoy, 3);
-        wristDownButton.whileHeld(new WristDown());
+        wristDownButton.whenPressed(new WristDown());
         wristUpButton = new JoystickButton(debugJoy, 4);
-        wristUpButton.whileHeld(new WristUp());
+        wristUpButton.whenPressed(new WristUp());
         elbowDownButton = new JoystickButton(debugJoy, 5);
-        elbowDownButton.whileHeld(new ElbowDown());
+        elbowDownButton.whenPressed(new ElbowDown());
         elbowUpButton = new JoystickButton(debugJoy, 6);
-        elbowUpButton.whileHeld(new ElbowUp());
+        elbowUpButton.whenPressed(new ElbowUp());
         shoulderDownButton = new JoystickButton(debugJoy, 7);
-        shoulderDownButton.whileHeld(new ShoulderDown());
+        shoulderDownButton.whenPressed(new ShoulderDown());
         sholuderUpButton = new JoystickButton(debugJoy, 8);
-        sholuderUpButton.whileHeld(new ShoulderUp());
+        sholuderUpButton.whenPressed(new ShoulderUp());
+        SmartDashboard.putBoolean("ELBOW UP BUTTON", elbowUpButton.get());
         
         buttonJoy = new Joystick(1);
         climbButton = new JoystickButton(buttonJoy, 14);
@@ -134,7 +135,7 @@ public class OI {
         
         mainJoy = new Joystick(0);
         driveHalfButton = new JoystickButton(mainJoy, 1);
-        driveHalfButton.whileHeld(new DriveHalf());
+        driveHalfButton.whenPressed(new DriveHalf());
 
 
         // SmartDashboard Buttons
