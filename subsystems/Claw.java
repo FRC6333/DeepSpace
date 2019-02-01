@@ -48,7 +48,7 @@ public class Claw extends Subsystem {
         
         
         
-        fIngerEncoder = new Encoder(10, 11, false, EncodingType.k4X);
+        fIngerEncoder = new Encoder(17, 18, false, EncodingType.k4X);
         addChild("FIngerEncoder",fIngerEncoder);
         fIngerEncoder.setDistancePerPulse(1.0);
         fIngerEncoder.setPIDSourceType(PIDSourceType.kRate);
