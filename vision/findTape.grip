@@ -1,0 +1,179 @@
+<edu.wpi.grip.core.Pipeline>
+  <sources>
+    <edu.wpi.grip.core.sources.MultiImageFileSource>
+      <property name="path[9]" value="C:\Users\Public\FRCvision\WIN_20190201_19_32_48_Pro.jpg"/>
+      <property name="path[10]" value="C:\Users\Public\FRCvision\WIN_20190201_19_37_11_Pro.jpg"/>
+      <property name="path[6]" value="C:\Users\Public\FRCvision\WIN_20190201_19_32_00_Pro.jpg"/>
+      <property name="path[3]" value="C:\Users\Public\FRCvision\WIN_20190201_19_17_36_Pro.jpg"/>
+      <property name="path[0]" value="C:\Users\Public\FRCvision\WIN_20190201_18_28_49_Pro.jpg"/>
+      <property name="path[8]" value="C:\Users\Public\FRCvision\WIN_20190201_19_32_38_Pro.jpg"/>
+      <property name="index" value="6"/>
+      <property name="numImages" value="12"/>
+      <property name="path[5]" value="C:\Users\Public\FRCvision\WIN_20190201_19_19_11_Pro.jpg"/>
+      <property name="path[2]" value="C:\Users\Public\FRCvision\WIN_20190201_19_17_19_Pro.jpg"/>
+      <property name="path[11]" value="C:\Users\Public\FRCvision\WIN_20190201_19_38_13_Pro.jpg"/>
+      <property name="path[7]" value="C:\Users\Public\FRCvision\WIN_20190201_19_32_14_Pro.jpg"/>
+      <property name="path[4]" value="C:\Users\Public\FRCvision\WIN_20190201_19_18_58_Pro.jpg"/>
+      <property name="path[1]" value="C:\Users\Public\FRCvision\WIN_20190201_19_15_17_Pro.jpg"/>
+    </edu.wpi.grip.core.sources.MultiImageFileSource>
+    <edu.wpi.grip.core.sources.CameraSource>
+      <property name="deviceNumber" value="1"/>
+    </edu.wpi.grip.core.sources.CameraSource>
+  </sources>
+  <steps>
+    <edu.wpi.grip.core.Step name="HSV Threshold">
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="0" socket="0"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="0" socket="1">
+        <value>
+          <double>50.36618187477896</double>
+          <double>89.7377290056749</double>
+        </value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="0" socket="2">
+        <value>
+          <double>57.32913669064748</double>
+          <double>255.0</double>
+        </value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="0" socket="3">
+        <value>
+          <double>158.68705035971226</double>
+          <double>255.0</double>
+        </value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="0" socket="0" previewed="false"/>
+    </edu.wpi.grip.core.Step>
+    <edu.wpi.grip.core.Step name="CV erode">
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="1" socket="0"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="1" socket="1"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="1" socket="2"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="1" socket="3">
+        <value>2.0</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="1" socket="4">
+        <value>BORDER_CONSTANT</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="1" socket="5"/>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="1" socket="0" previewed="false"/>
+    </edu.wpi.grip.core.Step>
+    <edu.wpi.grip.core.Step name="Blur">
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="2" socket="0"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="2" socket="1">
+        <value>GAUSSIAN</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="2" socket="2">
+        <value>7.207207207207207</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="2" socket="0" previewed="true"/>
+    </edu.wpi.grip.core.Step>
+    <edu.wpi.grip.core.Step name="Find Blobs">
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="3" socket="0"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="3" socket="1">
+        <value>0.0</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="3" socket="2">
+        <value>
+          <double>0.0</double>
+          <double>1.0</double>
+        </value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="3" socket="3">
+        <value>false</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="3" socket="0" previewed="true"/>
+    </edu.wpi.grip.core.Step>
+    <edu.wpi.grip.core.Step name="Find Contours">
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="4" socket="0"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="4" socket="1">
+        <value>false</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="4" socket="0" previewed="true"/>
+    </edu.wpi.grip.core.Step>
+    <edu.wpi.grip.core.Step name="NTPublish BlobsReport">
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="5" socket="0"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="5" socket="1">
+        <value>myBlobsReport</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="5" socket="2">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="5" socket="3">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="5" socket="4">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+    </edu.wpi.grip.core.Step>
+    <edu.wpi.grip.core.Step name="NTPublish ContoursReport">
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="0"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="1">
+        <value>myContoursReport</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="2">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="3">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="4">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="5">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="6">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="7">
+        <value>true</value>
+      </edu.wpi.grip.core.sockets.InputSocketImpl>
+    </edu.wpi.grip.core.Step>
+  </steps>
+  <connections>
+    <edu.wpi.grip.core.Connection>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl source="1" socket="0" previewed="true"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="0" socket="0"/>
+    </edu.wpi.grip.core.Connection>
+    <edu.wpi.grip.core.Connection>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="4" socket="0" previewed="true"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="6" socket="0"/>
+    </edu.wpi.grip.core.Connection>
+    <edu.wpi.grip.core.Connection>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="3" socket="0" previewed="true"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="5" socket="0"/>
+    </edu.wpi.grip.core.Connection>
+    <edu.wpi.grip.core.Connection>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="2" socket="0" previewed="true"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="3" socket="0"/>
+    </edu.wpi.grip.core.Connection>
+    <edu.wpi.grip.core.Connection>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="1" socket="0" previewed="false"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="2" socket="0"/>
+    </edu.wpi.grip.core.Connection>
+    <edu.wpi.grip.core.Connection>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="0" socket="0" previewed="false"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="1" socket="0"/>
+    </edu.wpi.grip.core.Connection>
+    <edu.wpi.grip.core.Connection>
+      <edu.wpi.grip.core.sockets.OutputSocketImpl step="2" socket="0" previewed="true"/>
+      <edu.wpi.grip.core.sockets.InputSocketImpl step="4" socket="0"/>
+    </edu.wpi.grip.core.Connection>
+  </connections>
+  <settings>
+    <teamNumber>6333</teamNumber>
+    <publishAddress>localhost</publishAddress>
+    <deployAddress>roboRIO-6333-FRC.local</deployAddress>
+    <deployDir>/home/lvuser</deployDir>
+    <deployUser>lvuser</deployUser>
+    <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
+    <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:MaxNewSize=16m</deployJvmOptions>
+  </settings>
+  <codeGenerationSettings>
+    <language>Java</language>
+    <className>GripPipeline</className>
+    <implementWpilibPipeline>false</implementWpilibPipeline>
+    <saveDir>C:\Users\Jacob Ledbtter\GRIP\version one</saveDir>
+    <packageName>betsy</packageName>
+    <moduleName>grip</moduleName>
+  </codeGenerationSettings>
+</edu.wpi.grip.core.Pipeline>
