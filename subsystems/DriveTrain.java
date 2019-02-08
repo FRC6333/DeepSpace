@@ -78,22 +78,22 @@ public class DriveTrain extends Subsystem {
         mecanumDrive.setMaxOutput(1.0);
 
         
-        leftFrontEncoder = new Encoder(2, 3, false, EncodingType.k4X);
+        leftFrontEncoder = new Encoder(0, 1, false, EncodingType.k4X);
         addChild("LeftFrontEncoder",leftFrontEncoder);
         leftFrontEncoder.setDistancePerPulse(1.0);
         leftFrontEncoder.setPIDSourceType(PIDSourceType.kRate);
         
-        leftRearEncoder = new Encoder(4, 5, false, EncodingType.k4X);
+        leftRearEncoder = new Encoder(2, 3, false, EncodingType.k4X);
         addChild("LeftRearEncoder",leftRearEncoder);
         leftRearEncoder.setDistancePerPulse(1.0);
         leftRearEncoder.setPIDSourceType(PIDSourceType.kRate);
         
-        rightFrontEncoder = new Encoder(6, 7, true, EncodingType.k4X);
+        rightFrontEncoder = new Encoder(4, 5, true, EncodingType.k4X);
         addChild("RightFrontEncoder",rightFrontEncoder);
         rightFrontEncoder.setDistancePerPulse(1.0);
         rightFrontEncoder.setPIDSourceType(PIDSourceType.kRate);
         
-        rightRearEncoder = new Encoder(8, 9, true, EncodingType.k4X);
+        rightRearEncoder = new Encoder(6, 7, true, EncodingType.k4X);
         addChild("RightRearEncoder",rightRearEncoder);
         rightRearEncoder.setDistancePerPulse(1.0);
         rightRearEncoder.setPIDSourceType(PIDSourceType.kRate);
