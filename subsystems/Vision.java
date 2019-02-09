@@ -78,15 +78,15 @@ public class Vision extends Subsystem {
 
     public void switchCamera(){
         if (selectedCamera == 0){
-            NetworkTableInstance.getDefault().getTable("CameraServer").getEntry("CameraSelection").setString(frontCam.getName());
+            NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(frontCam.getName());
             selectedCamera = 1;
         }
         else if (selectedCamera == 1){
-            NetworkTableInstance.getDefault().getTable("CameraServer").getEntry("CameraSelection").setString(backCam.getName());
+            NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(backCam.getName());
             selectedCamera = 2;
         }
         else{
-            NetworkTableInstance.getDefault().getTable("CameraServer").getEntry("CameraSelection").setString(fingerCam.getName());
+            NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(fingerCam.getName());
             selectedCamera = 0;
         }
     }

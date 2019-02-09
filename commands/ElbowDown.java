@@ -44,7 +44,7 @@ public class ElbowDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.elbow_sub.moveElbow(-0.5);
+        Robot.elbow_sub.moveElbow(-0.33);
         SmartDashboard.putBoolean("ELBOW DONW HIT!", true);
     }
 
