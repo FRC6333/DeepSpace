@@ -45,7 +45,6 @@ public class ElbowDown extends Command {
     @Override
     protected void execute() {
         Robot.elbow_sub.moveElbow(-0.33);
-        SmartDashboard.putBoolean("ELBOW DONW HIT!", true);
     }
 
     // Make this return true when this Command no longer needs to run execute()

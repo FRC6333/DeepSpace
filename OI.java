@@ -12,10 +12,10 @@
 package org.usfirst.frc6333.DeepSpace;
 
 import org.usfirst.frc6333.DeepSpace.commands.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
-import org.usfirst.frc6333.DeepSpace.subsystems.*;
+//import org.usfirst.frc6333.DeepSpace.subsystems.*;
 
 
 /**
@@ -69,6 +69,7 @@ public class OI {
     public JoystickButton gotoBall3Button;
     public JoystickButton releaseBallButton;
     public JoystickButton climbButton;
+    public JoystickButton startPosition;
     public Joystick buttonJoy;
     public JoystickButton sholuderUpButton;
     public JoystickButton shoulderDownButton;
@@ -104,7 +105,25 @@ public class OI {
         sholuderUpButton.whenPressed(new ShoulderUp());
         
         buttonJoy = new Joystick(1);
-        climbButton = new JoystickButton(buttonJoy, 14);
+        fingersCloseButton = new JoystickButton(buttonJoy, 8);
+        fingersCloseButton.whenPressed(new FingersClose());
+        fingersOpenButton = new JoystickButton(buttonJoy, 7);
+        fingersOpenButton.whenPressed(new FingersOpen());
+        wristDownButton = new JoystickButton(buttonJoy, 5);
+        wristDownButton.whenPressed(new WristDown());
+        wristUpButton = new JoystickButton(buttonJoy, 6);
+        wristUpButton.whenPressed(new WristUp());
+        elbowDownButton = new JoystickButton(buttonJoy, 3);
+        elbowDownButton.whenPressed(new ElbowDown());
+        elbowUpButton = new JoystickButton(buttonJoy, 4);
+        elbowUpButton.whenPressed(new ElbowUp());
+        shoulderDownButton = new JoystickButton(buttonJoy, 1);
+        shoulderDownButton.whenPressed(new ShoulderDown());
+        sholuderUpButton = new JoystickButton(buttonJoy, 2);
+        sholuderUpButton.whenPressed(new ShoulderUp());
+        startPosition = new JoystickButton(buttonJoy, 9);
+        startPosition.whenPressed(new Startup());
+        /*climbButton = new JoystickButton(buttonJoy, 14);
         climbButton.whenPressed(new Climb());
         releaseBallButton = new JoystickButton(buttonJoy, 13);
         releaseBallButton.whenPressed(new ReleaseBall());
@@ -131,7 +150,7 @@ public class OI {
         getBallButton = new JoystickButton(buttonJoy, 2);
         getBallButton.whenPressed(new GetBall());
         gotoGroundButton = new JoystickButton(buttonJoy, 1);
-        gotoGroundButton.whenPressed(new GotoGround());
+        gotoGroundButton.whenPressed(new GotoGround());*/
         
         mainJoy = new Joystick(0);
         driveHalfButton = new JoystickButton(mainJoy, 1);

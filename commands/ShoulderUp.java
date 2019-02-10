@@ -43,13 +43,13 @@ public class ShoulderUp extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.shoulder_sub.moveShoulder(1.0);
+        Robot.shoulder_sub.moveShoulder(.75);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(!Robot.operatorInterface.sholuderUpButton.get()){
+        if(!Robot.operatorInterface.sholuderUpButton.get() || !Robot.shoulder_sub.getShoulderStop()){
             return true;
         }
         else{
@@ -61,6 +61,9 @@ public class ShoulderUp extends Command {
     @Override
     protected void end() {
         Robot.shoulder_sub.stopShoulder();
+        if (!Robot.shoulder_sub.getShoulderStop()) {
+            Robot.shoulder_sub.ResetShoulder();
+        }
     }
 
     // Called when another command which requires one or more of the same
