@@ -43,7 +43,7 @@ public class WristDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.wrist_sub.moveWrist(-0.333);
+        Robot.wrist_sub.moveWrist(-0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -52,7 +52,11 @@ public class WristDown extends Command {
         if(!Robot.operatorInterface.wristDownButton.get()){
             return true;
         }
-        else{
+        else if (!Robot.wrist_sub.getWristStop()) {
+            Robot.wrist_sub.ResetWrist();
+            return true;
+        }
+        else {
             return false;
         }
     }

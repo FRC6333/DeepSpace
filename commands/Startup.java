@@ -11,6 +11,8 @@
 
 package org.usfirst.frc6333.DeepSpace.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc6333.DeepSpace.Robot;
 
 /**
@@ -41,6 +43,9 @@ public class Startup extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.elbow_sub.disable();
+        Robot.wrist_sub.disable();
+        Robot.shoulder_sub.disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -49,12 +54,15 @@ public class Startup extends Command {
         //while the wrist insn't at the stop move it back
         while (Robot.wrist_sub.getWristStop()) {
             Robot.wrist_sub.moveWrist(-0.5);
+            SmartDashboard.putBoolean("Wrist Stop", Robot.wrist_sub.getWristStop());
         }
+        Robot.wrist_sub.stopWrist();
         Robot.wrist_sub.ResetWrist();
         //while the fingers aren't at the stop, move them together
         while (Robot.fingers_sub.getFingerStop()){
-            Robot.fingers_sub.moveFingers(0.3);
+            Robot.fingers_sub.moveFingers(0.4);
         }
+        Robot.fingers_sub.stopFingers();
         Robot.fingers_sub.ResetFingers();
         //move the elbow up a bit(broken do not use)
         //int magicSpeed = 1;
@@ -66,12 +74,14 @@ public class Startup extends Command {
         while (Robot.shoulder_sub.getShoulderStop()){
             Robot.shoulder_sub.moveShoulder(0.4);
         }
+        Robot.shoulder_sub.stopShoulder();
         Robot.shoulder_sub.ResetShoulder();
         //while the elbow isnt at the stop move it down
         while (Robot.elbow_sub.getElbowStop()){
             Robot.elbow_sub.moveElbow(-0.3);
         }
         Robot.elbow_sub.ResetElbow();
+        Robot.elbow_sub.stopElbow();
 
     }
 
@@ -79,6 +89,12 @@ public class Startup extends Command {
     @Override
     protected boolean isFinished() {
         if(!Robot.elbow_sub.getElbowStop()){
+            
+            Robot.shoulder_sub.ResetShoulder();
+            Robot.elbow_sub.ResetElbow();
+            Robot.wrist_sub.ResetWrist();
+            Robot.fingers_sub.ResetFingers();
+            System.out.print("Finished Startup\n");
             return true;
         }
         else{

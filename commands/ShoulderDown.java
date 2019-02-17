@@ -52,7 +52,8 @@ public class ShoulderDown extends Command {
         if(!Robot.operatorInterface.shoulderDownButton.get()){
             return true;
         }
-        else{
+        
+        else {
             return false;
         }
     }

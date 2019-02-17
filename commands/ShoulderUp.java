@@ -52,6 +52,10 @@ public class ShoulderUp extends Command {
         if(!Robot.operatorInterface.sholuderUpButton.get() || !Robot.shoulder_sub.getShoulderStop()){
             return true;
         }
+        if (!Robot.shoulder_sub.getShoulderStop()){
+            Robot.shoulder_sub.ResetShoulder();
+            return true;
+        }
         else{
             return false;
         }

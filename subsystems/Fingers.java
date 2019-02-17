@@ -60,7 +60,7 @@ public class Fingers extends PIDSubsystem {
         // MC 8
         finger_motor = new WPI_VictorSPX(8);
         addChild("FingerMotor",finger_motor);
-        fingerEncoder = new Encoder(17, 18, false, EncodingType.k4X);
+        fingerEncoder = new Encoder(19, 20, false, EncodingType.k1X);
         addChild("FingerEncoder",fingerEncoder);
         fingerEncoder.setDistancePerPulse(1.0);
         fingerEncoder.setPIDSourceType(PIDSourceType.kDisplacement);

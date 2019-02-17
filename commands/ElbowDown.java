@@ -12,7 +12,7 @@
 package org.usfirst.frc6333.DeepSpace.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc6333.DeepSpace.Robot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -53,7 +53,11 @@ public class ElbowDown extends Command {
         if(!Robot.operatorInterface.elbowDownButton.get()){
             return true;
         }
-        else{
+        else if (!Robot.elbow_sub.getElbowStop()) {
+            Robot.elbow_sub.ResetElbow();
+            return true;
+            }
+        else {
             return false;
         }
     }
@@ -62,12 +66,10 @@ public class ElbowDown extends Command {
     @Override
     protected void end() {
         Robot.elbow_sub.stopElbow();
-        SmartDashboard.putBoolean("ELBOW DONW HIT!", false);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }

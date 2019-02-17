@@ -43,7 +43,7 @@ public class FingersOpen extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.fingers_sub.moveFingers(0.75);
+        Robot.fingers_sub.moveFingers(-0.75);
     }
 
     // Make this return true when this Command no longer needs to run execute()

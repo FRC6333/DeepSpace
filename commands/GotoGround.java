@@ -33,7 +33,7 @@ public class GotoGround extends Command {
 
         Robot.elbow_sub.setSetpoint(1000);
         Robot.elbow_sub.enable();
-        Robot.elbow_sub.setElbow_PID_Running(true);
+        Robot.elbow_sub.set_PID_Running(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -54,7 +54,7 @@ public class GotoGround extends Command {
     @Override
     protected void end() {
         Robot.elbow_sub.disable();
-        Robot.elbow_sub.setElbow_PID_Running(false);
+        Robot.elbow_sub.set_PID_Running(false);
     }
 
     // Called when another command which requires one or more of the same
