@@ -124,5 +124,8 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Wrist Setpoint", Robot.wrist_sub.getSetpoint());
+        SmartDashboard.putNumber("Shoulder Setpoint", Robot.shoulder_sub.getSetpoint());
+        SmartDashboard.putNumber("Elbow Setpoint", Robot.elbow_sub.getSetpoint());
     }
 }

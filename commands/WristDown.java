@@ -38,6 +38,7 @@ public class WristDown extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.wrist_sub.disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -49,7 +50,7 @@ public class WristDown extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(!Robot.operatorInterface.wristDownButton.get()){
+        if(!Robot.operatorInterface.WristDownButton.get()){
             return true;
         }
         else if (!Robot.wrist_sub.getWristStop()) {

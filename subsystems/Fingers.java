@@ -130,7 +130,6 @@ public class Fingers extends PIDSubsystem {
         // Put code here to be run every loop
         SmartDashboard.putNumber("Finger Encoder", this.getEncoder());
         SmartDashboard.putBoolean("Finger Stop", getFingerStop());
-        SmartDashboard.putNumber("Finger PID Count", this.getPosition());
 
     }
 

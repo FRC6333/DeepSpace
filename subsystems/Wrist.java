@@ -136,8 +136,6 @@ public class Wrist extends PIDSubsystem {
         // Put code here to be run every loop
         SmartDashboard.putNumber("wristEncoder", this.getEncoder());
         SmartDashboard.putBoolean("Wrist Stop", getWristStop());
-        SmartDashboard.putNumber("Wrist PID Count", this.getPosition());
-        SmartDashboard.putBoolean("Wrist PID Running", Wrist_PID_Running);
 
     }
 

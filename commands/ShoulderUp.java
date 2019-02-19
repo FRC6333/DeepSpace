@@ -38,6 +38,7 @@ public class ShoulderUp extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.shoulder_sub.disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -49,7 +50,7 @@ public class ShoulderUp extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(!Robot.operatorInterface.sholuderUpButton.get() || !Robot.shoulder_sub.getShoulderStop()){
+        if(!Robot.operatorInterface.ShoulderUpButton.get() || !Robot.shoulder_sub.getShoulderStop()){
             return true;
         }
         if (!Robot.shoulder_sub.getShoulderStop()){
@@ -59,6 +60,7 @@ public class ShoulderUp extends Command {
         else{
             return false;
         }
+        
     }
 
     // Called once after isFinished returns true

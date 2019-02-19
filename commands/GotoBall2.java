@@ -42,6 +42,12 @@ public class GotoBall2 extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+
+        // Disable any already running commands
+        Robot.elbow_sub.disable();
+        Robot.fingers_sub.disable();
+        Robot.shoulder_sub.disable();
+        Robot.wrist_sub.disable();
            /* Order of Arm Operations
         *   1. Adjust Elbow
         *   2. Adjust Wrist
@@ -59,8 +65,6 @@ public class GotoBall2 extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        int Counter;
-        Counter = Robot.shoulder_sub.getShoulderEncoderCount();
         
         if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<100) {
             System.out.print("Shutting off Shoulder PID\n");
@@ -72,7 +76,6 @@ public class GotoBall2 extends Command {
             Robot.wrist_sub.enable();
             Robot.wrist_sub.set_PID_Running(true);
             }
-        Counter = Robot.elbow_sub.getElbowEncoderCount();
     
         if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<50) {
             System.out.print("Shutting off Elbow PID\n");

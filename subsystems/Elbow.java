@@ -132,8 +132,6 @@ public class Elbow extends PIDSubsystem {
     public void periodic() {
         // Put code here to be run every loop       
         SmartDashboard.putNumber("Elbow Encoder", getElbowEncoderCount());
-        SmartDashboard.putBoolean("Elbow PID Running", Elbow_PID_Running);
-        SmartDashboard.putNumber("Elbow PID Count", this.getPosition());
         SmartDashboard.putBoolean("Elbow Stop", getElbowStop());
     }
 
