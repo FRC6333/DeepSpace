@@ -67,25 +67,23 @@ public class GotoBall2 extends Command {
     protected void execute() {
         
         if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<100) {
-            System.out.print("Shutting off Shoulder PID\n");
+            
             Robot.shoulder_sub.disable();
             ShoulderPID = true;
             Robot.shoulder_sub.set_PID_Running(false);
 
             Robot.wrist_sub.setSetpoint(WristSetpoint);
             Robot.wrist_sub.enable();
-            Robot.wrist_sub.set_PID_Running(true);
+            
             }
     
         if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<50) {
-            System.out.print("Shutting off Elbow PID\n");
+
             Robot.elbow_sub.disable();
             ElbowPID=true;
-            Robot.elbow_sub.set_PID_Running(false);
             
             Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
             Robot.shoulder_sub.enable();
-            Robot.shoulder_sub.set_PID_Running(true);
     
         }
     }
@@ -93,11 +91,9 @@ public class GotoBall2 extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        /*if (Robot.elbow_sub.get_PID_Status() || Robot.shoulder_sub.get_PID_Status()) return false;
-        else return true;
-*/
+
         if (ShoulderPID && ElbowPID) {
-            System.out.print("Command Done\n");
+    
             return true;
         }
         else return false;
@@ -108,7 +104,7 @@ public class GotoBall2 extends Command {
     protected void end() {
         Robot.shoulder_sub.disable();
         Robot.elbow_sub.disable();
-        System.out.print("Ending GotoBall2\n");
+        System.out.print("Completed GotoBall2 Command\n");
     }
 
     // Called when another command which requires one or more of the same

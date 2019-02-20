@@ -10,22 +10,30 @@
 
 
 package org.usfirst.frc6333.DeepSpace.commands;
+import org.usfirst.frc6333.DeepSpace.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 //import org.usfirst.frc6333.DeepSpace.Robot;
 
 /**
- *
+ * This grabs the ball assuming it is set
  */
-public class GetBall extends Command {
+public class GrabBall extends Command {
 
-    public GetBall() {
+    private int FingerSetpoint = 197000;
 
-   
+    public GrabBall() {
+
+    
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+
+        Robot.fingers_sub.setSetpoint(FingerSetpoint);
+        Robot.fingers_sub.enable();
+
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,17 +44,24 @@ public class GetBall extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        
+        if (Math.abs(FingerSetpoint-Robot.fingers_sub.getEncoder())<20000) {
+            return true;
+        } else return false;
+
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.fingers_sub.disable();
+        System.out.print("Completed GetBall Command\n");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }

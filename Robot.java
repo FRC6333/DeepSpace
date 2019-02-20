@@ -127,5 +127,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Wrist Setpoint", Robot.wrist_sub.getSetpoint());
         SmartDashboard.putNumber("Shoulder Setpoint", Robot.shoulder_sub.getSetpoint());
         SmartDashboard.putNumber("Elbow Setpoint", Robot.elbow_sub.getSetpoint());
+        SmartDashboard.putNumber("Finger Setpoint", Robot.fingers_sub.getSetpoint());
+    
     }
 }

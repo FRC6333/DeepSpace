@@ -51,24 +51,24 @@ public class Startup extends Command {
         Robot.wrist_sub.ResetWrist();
         //while the fingers aren't at the stop, move them together
         while (Robot.fingers_sub.getFingerStop()){
-            Robot.fingers_sub.moveFingers(0.4);
+            Robot.fingers_sub.moveFingers(0.6);
         }
         Robot.fingers_sub.stopFingers();
         Robot.fingers_sub.ResetFingers();
        
         //while the shoulder isnt at the stop move it back
         while (Robot.shoulder_sub.getShoulderStop()){
-            Robot.shoulder_sub.moveShoulder(0.4);
+            Robot.shoulder_sub.moveShoulder(0.75);
         }
         Robot.shoulder_sub.stopShoulder();
         Robot.shoulder_sub.ResetShoulder();
         //while the elbow isnt at the stop move it down
         while (Robot.elbow_sub.getElbowStop()){
-            Robot.elbow_sub.moveElbow(-0.3);
+            Robot.elbow_sub.moveElbow(-0.5);
         }
-        Robot.elbow_sub.ResetElbow();
         Robot.elbow_sub.stopElbow();
-
+        Robot.elbow_sub.ResetElbow();
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -80,7 +80,6 @@ public class Startup extends Command {
             Robot.elbow_sub.ResetElbow();
             Robot.wrist_sub.ResetWrist();
             Robot.fingers_sub.ResetFingers();
-            System.out.print("Finished Startup\n");
             return true;
         }
         else{
@@ -91,6 +90,7 @@ public class Startup extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        System.out.print("Completed Startup Command\n");
     }
 
     // Called when another command which requires one or more of the same

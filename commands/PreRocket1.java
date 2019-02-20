@@ -23,9 +23,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class PreRocket1 extends Command {
 
     //Values for Hatch
-    private int ElbowSetpoint = 118;
-    private int ShoulderSetpoint = 0;
-    private int WristSetpoint = 74419;
+    private int ElbowSetpoint;
+    private int ShoulderSetpoint;
+    private int WristSetpoint;
 
     private boolean ElbowPID;
     private boolean ShoulderPID;
@@ -50,13 +50,22 @@ public class PreRocket1 extends Command {
 
         //Button is 'set' for hatch and 'unset' for ball
         if (!Robot.operatorInterface.BallHatchButton.get()) {
-            
-            ElbowSetpoint = 330;
+            System.out.print("Doing Ball\n");
+            ElbowSetpoint = 430;
             ShoulderSetpoint =-441;
             WristSetpoint =82683;
             
+        } else {
+            System.out.print("Doing Hatch\n");
+            ElbowSetpoint = 100;
+            ShoulderSetpoint = 0;
+            WristSetpoint = 74419;
         }
            /* Order of Arm Operations
+
+           if Shoulder is going from abs(higher) to abs(lower) then do shoulder first
+           if shoulders is going from abs(lower) to abs(higher) then do shoulder last
+
         *   1. Adjust Elbow
         *   2. Adjust Wrist
         *   3. Adjust Shoulder
@@ -67,6 +76,8 @@ public class PreRocket1 extends Command {
 
         Robot.wrist_sub.setSetpoint(WristSetpoint);
         Robot.wrist_sub.enable();
+        Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
+        Robot.shoulder_sub.enable();
         Robot.elbow_sub.setSetpoint(ElbowSetpoint);
         Robot.elbow_sub.enable();
         ElbowPID = false;
@@ -77,8 +88,7 @@ public class PreRocket1 extends Command {
     @Override
     protected void execute() {
         
-        if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<100) {
-            System.out.print("Shutting off Shoulder PID\n");
+        if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<20) {
             Robot.shoulder_sub.disable();
             ShoulderPID = true;
 
@@ -86,8 +96,8 @@ public class PreRocket1 extends Command {
             Robot.wrist_sub.enable();
             }
     
-        if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<50) {
-            System.out.print("Shutting off Elbow PID\n");
+        if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<20) {
+
             Robot.elbow_sub.disable();
             ElbowPID=true;
             
@@ -103,7 +113,7 @@ public class PreRocket1 extends Command {
     protected boolean isFinished() {
       
         if (ShoulderPID && ElbowPID) {
-            System.out.print("Command Done\n");
+            
             return true;
         }
         else return false;
@@ -114,7 +124,7 @@ public class PreRocket1 extends Command {
     protected void end() {
         Robot.shoulder_sub.disable();
         Robot.elbow_sub.disable();
-        System.out.print("Ending PreRocket1\n");
+        System.out.print("Completed PreRocket1 Command\n");
     }
 
     // Called when another command which requires one or more of the same

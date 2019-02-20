@@ -124,7 +124,7 @@ public class OI {
         ReleaseRocket1Button = new JoystickButton(PlatJoy, 3);
         ReleaseRocket1Button.whenPressed(new Release());
         PreCargoButton = new JoystickButton(PlatJoy, 4);
-        PreCargoButton.whenPressed(new PreBallCargo());
+        PreCargoButton.whenPressed(new PreCargo());
         ReleaseCargoButton = new JoystickButton(PlatJoy, 5);
         ReleaseCargoButton.whenPressed(new Release());
         WheelDownButton = new JoystickButton(PlatJoy, 6);
@@ -148,7 +148,7 @@ public class OI {
         PreBallButton = new JoystickButton(LoadJoy,3);
         PreBallButton.whenPressed(new PreBallPickup());
         GrabBallButton = new JoystickButton(LoadJoy,4);
-        GrabBallButton.whenPressed(new GetBall());
+        GrabBallButton.whenPressed(new GrabBall());
         PreHatchButton = new JoystickButton(LoadJoy,5);
         PreHatchButton.whenPressed(new PreHatchPickup());
         GrabHatchButton = new JoystickButton(LoadJoy,6);

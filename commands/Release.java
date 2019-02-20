@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Release extends Command {
     //setPoints
-    private int fingersSetpoint = 323808;
+    private int fingersSetpoint = 323800;
 
 
     public Release() {
@@ -55,7 +55,7 @@ public class Release extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (Math.abs(fingersSetpoint-Robot.fingers_sub.getEncoder())<100) {
+        if (Math.abs(fingersSetpoint-Robot.fingers_sub.getEncoder())<15000) {
                 return true;
         }
         return false;
@@ -64,6 +64,7 @@ public class Release extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        System.out.print("Completed Release Command\n");
         Robot.fingers_sub.disable();
     }
 

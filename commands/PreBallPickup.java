@@ -22,12 +22,14 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class PreBallPickup extends Command {
 
-    private int ElbowSetpoint = 700;
-    private int ShoulderSetpoint = 0;
-    private int WristSetpoint = 108984;
+    private int ElbowSetpoint = 500;
+    private int ShoulderSetpoint = -916;
+    private int WristSetpoint = 145000;
+    private int FingerSetpoint = 400000;
 
     private boolean ElbowPID;
     private boolean ShoulderPID;
+    private boolean FingerPID;
 
     public PreBallPickup() {
 
@@ -49,50 +51,53 @@ public class PreBallPickup extends Command {
         *   3. Adjust Shoulder
         */
 
+        //Start fingers
+        Robot.fingers_sub.setSetpoint(FingerSetpoint);
+        Robot.fingers_sub.enable();
+
+        //Start Wrist
+        Robot.wrist_sub.setSetpoint(WristSetpoint);
+        Robot.wrist_sub.enable();
+
+        //Start Elbow
         Robot.elbow_sub.setSetpoint(ElbowSetpoint);
         Robot.elbow_sub.enable();
-        //Robot.elbow_sub.set_PID_Running(true);
-        //Robot.shoulder_sub.set_PID_Running(true);
         ElbowPID = false;
         ShoulderPID = false;
+        FingerPID = false;
         }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         
-        if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<100) {
-            System.out.print("Shutting off Shoulder PID\n");
+        if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<20) {
+            
             Robot.shoulder_sub.disable();
             ShoulderPID = true;
-            Robot.shoulder_sub.set_PID_Running(false);
-
-            Robot.wrist_sub.setSetpoint(WristSetpoint);
-            Robot.wrist_sub.enable();
-            Robot.wrist_sub.set_PID_Running(true);
+        
             }
     
-        if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<50) {
-            System.out.print("Shutting off Elbow PID\n");
+        if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<20) {
             Robot.elbow_sub.disable();
             ElbowPID=true;
-            Robot.elbow_sub.set_PID_Running(false);
             
             Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
             Robot.shoulder_sub.enable();
-            Robot.shoulder_sub.set_PID_Running(true);
     
+        }
+
+        if (Math.abs(FingerSetpoint - Robot.fingers_sub.getEncoder())<20000) {
+            Robot.fingers_sub.disable();
+            FingerPID = true;
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        /*if (Robot.elbow_sub.get_PID_Status() || Robot.shoulder_sub.get_PID_Status()) return false;
-        else return true;
-*/
-        if (ShoulderPID && ElbowPID) {
-            System.out.print("Command Done\n");
+
+        if (ShoulderPID && ElbowPID && FingerPID) {
             return true;
         }
         else return false;
@@ -103,7 +108,8 @@ public class PreBallPickup extends Command {
     protected void end() {
         Robot.shoulder_sub.disable();
         Robot.elbow_sub.disable();
-        System.out.print("Ending PreBallPickup\n");
+        Robot.fingers_sub.disable();
+        System.out.print("Completed PreBallPickup Command\n");
     }
 
     // Called when another command which requires one or more of the same

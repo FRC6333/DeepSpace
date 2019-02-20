@@ -55,6 +55,7 @@ public class ShoulderDown extends Command {
         if (!Robot.shoulder_sub.getShoulderStop()) {
             Robot.shoulder_sub.ResetShoulder();
         }
+        System.out.print("Completed ShoulderDown Command\n");
     }
 
     // Called when another command which requires one or more of the same

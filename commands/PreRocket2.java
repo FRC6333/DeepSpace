@@ -23,9 +23,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class PreRocket2 extends Command {
 
     //Values for Hatch
-    private int ElbowSetpoint = 933;
-    private int ShoulderSetpoint = -297;
-    private int WristSetpoint = 100000;
+    private int ElbowSetpoint;
+    private int ShoulderSetpoint;
+    private int WristSetpoint;
 
     private boolean ElbowPID;
     private boolean ShoulderPID;
@@ -50,11 +50,16 @@ public class PreRocket2 extends Command {
 
         //Button is 'set' for hatch and 'unset' for ball
         if (!Robot.operatorInterface.BallHatchButton.get()) {
-            
+            System.out.print("Doing Ball\n");
             ElbowSetpoint = 1080;
             ShoulderSetpoint =-82;
             WristSetpoint =109031;
         
+        } else {
+            System.out.print("Doing Hatch\n");
+            ElbowSetpoint = 1030;
+            ShoulderSetpoint = -297;
+             WristSetpoint = 105555; 
         }
            /* Order of Arm Operations
         *   1. Adjust Elbow
@@ -73,27 +78,25 @@ public class PreRocket2 extends Command {
     @Override
     protected void execute() {
         
-        if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<100) {
-            System.out.print("Shutting off Shoulder PID\n");
+        if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<20) {
+            
             Robot.shoulder_sub.disable();
             ShoulderPID = true;
-            Robot.shoulder_sub.set_PID_Running(false);
+            
 
             Robot.wrist_sub.setSetpoint(WristSetpoint);
             Robot.wrist_sub.enable();
-            Robot.wrist_sub.set_PID_Running(true);
+        
             }
     
-        if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<50) {
-            System.out.print("Shutting off Elbow PID\n");
+        if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<20) {
+            
             Robot.elbow_sub.disable();
             ElbowPID=true;
-            Robot.elbow_sub.set_PID_Running(false);
             
             Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
             Robot.shoulder_sub.enable();
-            Robot.shoulder_sub.set_PID_Running(true);
-    
+            
         }
     }
 
@@ -102,7 +105,7 @@ public class PreRocket2 extends Command {
     protected boolean isFinished() {
       
         if (ShoulderPID && ElbowPID) {
-            System.out.print("Command Done\n");
+            
             return true;
         }
         else return false;
@@ -113,7 +116,7 @@ public class PreRocket2 extends Command {
     protected void end() {
         Robot.shoulder_sub.disable();
         Robot.elbow_sub.disable();
-        System.out.print("Ending PreRocket2\n");
+        System.out.print("Completed PreRocket2 Command\n");
     }
 
     // Called when another command which requires one or more of the same
