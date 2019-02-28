@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Release extends Command {
     //setPoints
-    private int fingersSetpoint = 323800;
+    private int fingersSetpoint = 0;
 
 
     public Release() {
@@ -36,9 +36,9 @@ public class Release extends Command {
         Robot.fingers_sub.disable();
         Robot.shoulder_sub.disable();
 
-        //Button is 'set' for hatch and 'unset' for ball
-        if (Robot.operatorInterface.BallHatchButton.get()) {
-            fingersSetpoint = 0;
+        //Button is 'set' for ball and 'unset' for hatch
+        if (Robot.ballFlag) {
+            fingersSetpoint = 323800;
             
         }
 

@@ -33,6 +33,7 @@ public class GrabBall extends Command {
 
         Robot.fingers_sub.setSetpoint(FingerSetpoint);
         Robot.fingers_sub.enable();
+        Robot.ballFlag = true;
 
     }
 

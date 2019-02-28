@@ -38,6 +38,7 @@ public class GrabHatch extends Command {
         Robot.fingers_sub.setSetpoint(75000);
         Robot.fingers_sub.enable();
         FingerPID = false;
+        Robot.ballFlag = false;
 
     }
 
