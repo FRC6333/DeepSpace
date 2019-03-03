@@ -87,7 +87,8 @@ public class PreRocket1 extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        
+        System.out.print("PreRocket1 running for ");
+        System.out.print(this.timeSinceInitialized());
         if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<20) {
             Robot.shoulder_sub.disable();
             ShoulderPID = true;

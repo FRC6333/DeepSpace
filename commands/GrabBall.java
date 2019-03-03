@@ -31,9 +31,17 @@ public class GrabBall extends Command {
     @Override
     protected void initialize() {
 
+        /*
+        * changing initialize to simply close fingers at speed
+        * and stop when close to setpoint
+        * no longer useing PID controler because accuraccy is not important
+    
         Robot.fingers_sub.setSetpoint(FingerSetpoint);
         Robot.fingers_sub.enable();
         Robot.ballFlag = true;
+        */
+
+        Robot.fingers_sub.moveFingers(0.75);
 
     }
 
@@ -46,16 +54,25 @@ public class GrabBall extends Command {
     @Override
     protected boolean isFinished() {
         
+        /* see note in initialize
         if (Math.abs(FingerSetpoint-Robot.fingers_sub.getEncoder())<20000) {
             return true;
         } else return false;
+        */
 
+        if (Robot.fingers_sub.getEncoder() < FingerSetpoint) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.fingers_sub.disable();
+        //Robot.fingers_sub.disable();
+        Robot.fingers_sub.moveFingers(0);
         System.out.print("Completed GetBall Command\n");
     }
 

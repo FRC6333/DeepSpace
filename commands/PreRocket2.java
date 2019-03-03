@@ -42,7 +42,7 @@ public class PreRocket2 extends Command {
         Robot.elbow_sub.disable();
         Robot.fingers_sub.disable();
         Robot.shoulder_sub.disable();
-        //Robot.wrist_sub.disable();
+        Robot.wrist_sub.disable();
 
         // First Check state of BallHatchButton
         // Then define the setpoints
@@ -77,7 +77,8 @@ public class PreRocket2 extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        
+        System.out.print("PreRocket2 running for ");
+        System.out.print(this.timeSinceInitialized());
         if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<20) {
             
             Robot.shoulder_sub.disable();
