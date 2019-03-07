@@ -76,15 +76,15 @@ public class OI {
     public JoystickButton ReleaseRocket1Button; //Joystick 2, Button 3
     public JoystickButton PreCargoButton; //Joystick 2, Button 4
     public JoystickButton ReleaseCargoButton; //Joystick 2, Button 5
-    public JoystickButton WheelDownButton; //Joystick 2, Button 6
-    public JoystickButton LowerRobotButton; //Joystick 2, Button 7
-    public JoystickButton PlatformLevelButton; //Joystick 2, Button 8
-    public JoystickButton BallHatchButton; //Joystick 2, Button 9
-    public JoystickButton LiftRobotButton; //Joystick 2, Button 10
-    public JoystickButton WheelUpButton; //Joystick 2, Button 11
+    public JoystickButton WristUpButton; //Joystick 2, Button 6
+    public JoystickButton WristDownButton; //Joystick 2, Button 7
+    public JoystickButton ShoulderUpButton; //Joystick 2, Button 8
+    public JoystickButton ShoulderDownButton; //Joystick 2, Button 9
+    public JoystickButton ElbowUpButton; //Joystick 2, Button 10
+    public JoystickButton ElbowDownButton; //Joystick 2, Button 11
     public Joystick PlatJoy;
 
-    public JoystickButton ResetArmButton; //Joystick 3, Button 9
+/*    public JoystickButton ResetArmButton; //Joystick 3, Button 9
     public JoystickButton ShoulderUpButton; //joystick 3, Button 7
     public JoystickButton ShoulderDownButton; //joystick 3, button 8
     public JoystickButton ElbowupButton; // joystick 3, Button 5
@@ -94,6 +94,7 @@ public class OI {
     public JoystickButton FingerInButton; // Joystick 3, Button 1
     public JoystickButton FingerOutButton; // Joystick 3, BUtton 2
     public Joystick DebugJoy;
+*/
 
     public OI() {
         
@@ -130,18 +131,18 @@ public class OI {
         PreCargoButton.whenPressed(new PreCargo());
         ReleaseCargoButton = new JoystickButton(PlatJoy, 5);
         ReleaseCargoButton.whenPressed(new Release());
-        WheelDownButton = new JoystickButton(PlatJoy, 6);
-        WheelDownButton.whenPressed(new WristUp());
-        LowerRobotButton = new JoystickButton(PlatJoy, 7);
-        LowerRobotButton.whenPressed(new WristDown());
-        PlatformLevelButton = new JoystickButton(PlatJoy, 8);
-        PlatformLevelButton.whenPressed(new ShoulderUp());
-        BallHatchButton = new JoystickButton(PlatJoy, 9);
-        BallHatchButton.whenPressed(new ShoulderDown());
-        LiftRobotButton = new JoystickButton(PlatJoy, 10);
-        LiftRobotButton.whenPressed(new ElbowUp());
-        WheelUpButton = new JoystickButton(PlatJoy, 11);
-        WheelUpButton.whenPressed(new ElbowDown());
+        WristUpButton = new JoystickButton(PlatJoy, 6);
+        WristUpButton.whenPressed(new WristUp());
+        WristDownButton = new JoystickButton(PlatJoy, 7);
+        WristDownButton.whenPressed(new WristDown());
+        ShoulderUpButton = new JoystickButton(PlatJoy, 8);
+        ShoulderUpButton.whenPressed(new ShoulderUp());
+        ShoulderDownButton = new JoystickButton(PlatJoy, 9);
+        ShoulderDownButton.whenPressed(new ShoulderDown());
+        ElbowUpButton = new JoystickButton(PlatJoy, 10);
+        ElbowUpButton.whenPressed(new ElbowUp());
+        ElbowDownButton = new JoystickButton(PlatJoy, 11);
+        ElbowDownButton.whenPressed(new ElbowDown());
         
         LoadJoy = new Joystick(1);
         StopButton = new JoystickButton(LoadJoy, 1);

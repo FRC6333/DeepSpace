@@ -32,13 +32,15 @@ public class Release extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        setInterruptible(true);
+        
         Robot.elbow_sub.disable();
         Robot.fingers_sub.disable();
         Robot.shoulder_sub.disable();
 
         //Button is 'set' for ball and 'unset' for hatch
         if (Robot.ballFlag) {
-            fingersSetpoint = 323800;
+            fingersSetpoint = 500000;
             
         }
 

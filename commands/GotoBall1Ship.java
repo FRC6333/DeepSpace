@@ -38,7 +38,8 @@ public class GotoBall1Ship extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-
+        setInterruptible(true);
+        
         // Disable any already running commands
         Robot.elbow_sub.disable();
         Robot.fingers_sub.disable();

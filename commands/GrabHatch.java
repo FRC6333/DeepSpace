@@ -34,7 +34,8 @@ public class GrabHatch extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-
+        setInterruptible(true);
+        
         Robot.fingers_sub.setSetpoint(75000);
         Robot.fingers_sub.enable();
         FingerPID = false;

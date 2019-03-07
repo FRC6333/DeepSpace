@@ -50,7 +50,7 @@ public class Elbow extends PIDSubsystem {
         // MC6
         elbow_motor = new WPI_VictorSPX(6);
         addChild("ElbowMotor",elbow_motor);
-        elbowEncoder = new Encoder(8,9,false,EncodingType.k4X);
+        elbowEncoder = new Encoder(8,9,false,EncodingType.k1X);
         addChild("ElbowEncoder",elbowEncoder);
         elbowEncoder.setDistancePerPulse(1.0);
         elbowEncoder.setPIDSourceType(PIDSourceType.kDisplacement);

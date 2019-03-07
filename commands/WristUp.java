@@ -33,25 +33,31 @@ public class WristUp extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.wrist_sub.moveWrist(0.5);
+
+        Robot.wrist_sub.moveWrist(-0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-     if(!Robot.operatorInterface.WristUpButton.get()){
+        if(!Robot.operatorInterface.WristUpButton.get()){
+           
             return true;
         }
-        else{
+        else if (!Robot.wrist_sub.getWristStop()) {
+            //Robot.wrist_sub.ResetWrist();
+            return true;
+   }
+        else {
             return false;
         }
-    
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
         Robot.wrist_sub.stopWrist();
+        System.out.print ("Command Wristup Finished\n");
     }
 
     // Called when another command which requires one or more of the same

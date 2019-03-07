@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
 //import org.usfirst.frc6333.DeepSpace.Robot;
 
 /**
- * This Command setus up the robot arm to deliver either a
+ * This Command setus up the robot arm to deliver to the cargoship either a
  * ball or hatch depending on the state of the Ball/Hatch Button
  */
 public class PreCargo extends Command {
@@ -38,7 +38,8 @@ public class PreCargo extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-
+        setInterruptible(true);
+        
         // Disable any already running commands
         Robot.elbow_sub.disable();
         Robot.fingers_sub.disable();
@@ -49,8 +50,8 @@ public class PreCargo extends Command {
         // Then define the setpoints
         // Then start the movement
 
-        //Button is 'set' for hatch and 'unset' for ball
-        if (!Robot.operatorInterface.BallHatchButton.get()) {
+        //User Robot Ball Flag, true for vall
+        if (Robot.ballFlag) {
             System.out.print("Doing Ball");
             ElbowSetpoint = 725;
             ShoulderSetpoint = 0;

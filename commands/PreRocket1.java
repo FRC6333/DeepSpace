@@ -37,7 +37,8 @@ public class PreRocket1 extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-
+        setInterruptible(true);
+        
         // Disable any already running commands
         Robot.elbow_sub.disable();
         Robot.fingers_sub.disable();
@@ -49,7 +50,7 @@ public class PreRocket1 extends Command {
         // Then start the movement
 
         //Button is 'set' for hatch and 'unset' for ball
-        if (!Robot.operatorInterface.BallHatchButton.get()) {
+        if (Robot.ballFlag) {
             System.out.print("Doing Ball\n");
             ElbowSetpoint = 430;
             ShoulderSetpoint =-441;
@@ -87,8 +88,8 @@ public class PreRocket1 extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        System.out.print("PreRocket1 running for ");
-        System.out.print(this.timeSinceInitialized());
+        //System.out.print("PreRocket1 running for ");
+        //System.out.print(this.timeSinceInitialized());
         if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<20) {
             Robot.shoulder_sub.disable();
             ShoulderPID = true;

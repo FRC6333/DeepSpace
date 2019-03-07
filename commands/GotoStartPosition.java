@@ -11,42 +11,51 @@
 
 package org.usfirst.frc6333.DeepSpace.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc6333.DeepSpace.Robot;
 
 /**
- *
+ * This command moves all arms until the switchs are closed
+ * once all switches are closed it resets the encoders
  */
-public class WristDown extends Command {
+public class GotoStartPosition extends Command {
 
-    public WristDown() {
-
-        requires(Robot.wrist_sub);
+    
+    public GotoStartPosition() {
+        
+        requires(Robot.shoulder_sub);
 
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.wrist_sub.disable();
+        setInterruptible(true);
+        
+
+        Robot.shoulder_sub.setSetpoint(-484.0);
+        Robot.fingers_sub.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.wrist_sub.moveWrist(0.5);
+
+     
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(!Robot.operatorInterface.WristDownButton.get()){
+        if (Math.abs(-484-Robot.shoulder_sub.getShoulderEncoderCount())<50) {
+            Robot.shoulder_sub.disable();
+            return true;
+        
+        } else if (timeSinceInitialized() > 2.0) {
             return true;
         }
-     //   else if (!Robot.wrist_sub.getWristStop()) {
-            //Robot.wrist_sub.ResetWrist();
-     //       return true;
-     //   }
-        else {
+        else{
             return false;
         }
     }
@@ -54,9 +63,11 @@ public class WristDown extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.wrist_sub.stopWrist();
-        System.out.print("Command WristDown Completed \n");
+        Robot.shoulder_sub.disable();
+
+        System.out.print("Completed GotoStartPosition Command\n");
     }
+
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run

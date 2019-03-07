@@ -20,7 +20,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GrabBall extends Command {
 
-    private int FingerSetpoint = 197000;
+    private int FingerSetpoint = 400000;
+    private int WristSetPoint = 140000;
+    private int ElbowSetPoint = 525;
 
     public GrabBall() {
 
@@ -30,18 +32,26 @@ public class GrabBall extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        setInterruptible(true);
+        
+        Robot.wrist_sub.setSetpoint(WristSetPoint);
+        Robot.wrist_sub.enable();
+        Robot.elbow_sub.setSetpoint(ElbowSetPoint);
+        Robot.elbow_sub.enable();
 
-        /*
-        * changing initialize to simply close fingers at speed
-        * and stop when close to setpoint
-        * no longer useing PID controler because accuraccy is not important
+        
     
         Robot.fingers_sub.setSetpoint(FingerSetpoint);
         Robot.fingers_sub.enable();
         Robot.ballFlag = true;
-        */
-
-        Robot.fingers_sub.moveFingers(0.75);
+    
+        /*
+       if (Robot.fingers_sub.getEncoder()>FingerSetpoint) { 
+           Robot.fingers_sub.moveFingers(0.75);
+       } else {
+           Robot.fingers_sub.stopFingers();
+       }
+       */
 
     }
 
@@ -54,25 +64,27 @@ public class GrabBall extends Command {
     @Override
     protected boolean isFinished() {
         
-        /* see note in initialize
-        if (Math.abs(FingerSetpoint-Robot.fingers_sub.getEncoder())<20000) {
+        
+        if (Math.abs(ElbowSetPoint-Robot.elbow_sub.getElbowEncoderCount())< 50) { 
             return true;
-        } else return false;
-        */
-
-        if (Robot.fingers_sub.getEncoder() < FingerSetpoint) {
+        } else {
+            return false;
+        
+        }
+        /*if (Robot.fingers_sub.getEncoder() < FingerSetpoint) {
             return true;
         }
         else {
             return false;
-        }
+        }*/
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        //Robot.fingers_sub.disable();
+        Robot.fingers_sub.disable();
         Robot.fingers_sub.moveFingers(0);
+        Robot.elbow_sub.disable();
         System.out.print("Completed GetBall Command\n");
     }
 

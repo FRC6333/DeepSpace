@@ -22,10 +22,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class PreBallPickup extends Command {
 
-    private int ElbowSetpoint = 500;
+    private int ElbowSetpoint = 1500;
     private int ShoulderSetpoint = -916;
-    private int WristSetpoint = 145000;
-    private int FingerSetpoint = 400000;
+    private int WristSetpoint = 176000;
+    private int FingerSetpoint = 500000;
 
     private boolean ElbowPID;
     private boolean ShoulderPID;
@@ -38,7 +38,8 @@ public class PreBallPickup extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
- 
+        setInterruptible(true);
+        
          // Disable any already running commands
          Robot.elbow_sub.disable();
          Robot.fingers_sub.disable();
@@ -116,5 +117,7 @@ public class PreBallPickup extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+
+        end();
     }
 }

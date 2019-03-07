@@ -25,6 +25,8 @@ public class GotoGround extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        setInterruptible(true);
+        
         /* Order of Arm Operations
         *   1. Adjust Elbow
         *   2. Adjust Wrist
