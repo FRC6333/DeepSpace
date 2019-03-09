@@ -129,7 +129,7 @@ public class DriveTrain extends Subsystem {
         if (Math.abs(Xaxis)<0.1) Xaxis=0;
         if (Math.abs(Yaxis)<0.1) Yaxis=0;
 
-        mecanumDrive.driveCartesian(Xaxis, -Yaxis, Zaxis/4, gyro.getAngle());
+        mecanumDrive.driveCartesian(Xaxis, -Yaxis, Zaxis/4);
         // mecanumDrive.driveCartesian(-Xaxis, Yaxis, Zaxis, gyro);
     }
 
