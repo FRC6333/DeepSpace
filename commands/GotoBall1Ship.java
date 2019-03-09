@@ -46,12 +46,6 @@ public class GotoBall1Ship extends Command {
         Robot.shoulder_sub.disable();
         Robot.wrist_sub.disable();
         
-           /* Order of Arm Operations
-        *   1. Adjust Elbow
-        *   2. Adjust Wrist
-        *   3. Adjust Shoulder
-        */
-
         Robot.elbow_sub.setSetpoint(ElbowSetpoint);
         Robot.elbow_sub.enable();
         //Robot.elbow_sub.set_PID_Running(true);
@@ -108,5 +102,6 @@ public class GotoBall1Ship extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }

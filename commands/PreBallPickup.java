@@ -38,13 +38,14 @@ public class PreBallPickup extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        System.out.print("Starting PreBall Pickup Command\n");
         setInterruptible(true);
         
          // Disable any already running commands
          Robot.elbow_sub.disable();
          Robot.fingers_sub.disable();
          Robot.shoulder_sub.disable();
-         Robot.wrist_sub.disable();
+         //Robot.wrist_sub.disable();
 
          /* Order of Arm Operations
         *   1. Adjust Elbow

@@ -71,7 +71,7 @@ public class Fingers extends PIDSubsystem {
     }
 
     public void moveFingers(double speed){
-        finger_motor.set(speed);
+        finger_motor.set(speed/2);
     }
 
     public void stopFingers(){
@@ -107,7 +107,7 @@ public class Fingers extends PIDSubsystem {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
 
-        finger_motor.pidWrite(-output*0.75);
+        finger_motor.pidWrite(-output*0.5);
 
     }
 

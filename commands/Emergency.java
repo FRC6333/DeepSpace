@@ -42,7 +42,10 @@ public class Emergency extends Command {
     @Override
     protected void execute() {
 
-     
+        Robot.elbow_sub.stopElbow();
+        Robot.wrist_sub.stopWrist();
+        Robot.shoulder_sub.stopShoulder();
+        Robot.fingers_sub.stopFingers();
  
 
     }

@@ -29,6 +29,7 @@ public class PreRocket3 extends Command {
 
     private boolean ElbowPID;
     private boolean ShoulderPID;
+    private boolean WristPID;
 
     public PreRocket3() {
 
@@ -43,8 +44,9 @@ public class PreRocket3 extends Command {
          Robot.elbow_sub.disable();
          Robot.fingers_sub.disable();
          Robot.shoulder_sub.disable();
-         Robot.wrist_sub.disable();
+         //Robot.wrist_sub.disable();
 
+         //Robot.wrist_sub.moveWrist(0.1);
          // First Check state of BallHatchButton
         // Then define the setpoints
         // Then start the movement
@@ -67,13 +69,14 @@ public class PreRocket3 extends Command {
         *   2. Adjust Wrist
         *   3. Adjust Shoulder
         */
-        Robot.wrist_sub.setSetpoint(WristSetpoint);
-        Robot.wrist_sub.enable();
+        //Robot.wrist_sub.setSetpoint(WristSetpoint);
+        //Robot.wrist_sub.enable();
         
         Robot.elbow_sub.setSetpoint(ElbowSetpoint);
         Robot.elbow_sub.enable();
         ElbowPID = false;
         ShoulderPID = false;
+        WristPID = false;
         }
 
     // Called repeatedly when this Command is scheduled to run
@@ -98,13 +101,20 @@ public class PreRocket3 extends Command {
             Robot.shoulder_sub.enable();
             
         }
+    
+        if (Math.abs(WristSetpoint-Robot.wrist_sub.getEncoder() )<50) {
+            
+           // Robot.wrist_sub.disable();
+            WristPID=true;
+    
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
       
-        if (ShoulderPID && ElbowPID) {
+        if (ShoulderPID && ElbowPID && WristPID) {
             return true;
         }
         else return false;

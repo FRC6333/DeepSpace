@@ -33,6 +33,7 @@ public class PreHatchPickup extends Command {
     private boolean ElbowPID;
     private boolean ShoulderPID;
     private boolean FingerPID;
+    private boolean WristPID;
 
     public PreHatchPickup() {
 
@@ -47,37 +48,42 @@ public class PreHatchPickup extends Command {
         Robot.elbow_sub.disable();
         Robot.fingers_sub.disable();
         Robot.shoulder_sub.disable();
-        Robot.wrist_sub.disable();
+        //Robot.wrist_sub.disable();
 
         //Button is 'set' for load station and 'unset' for floor
         if (!Robot.operatorInterface.HatchFloorOrStationButton.get()) {
             
             // Settings for floor
-            ElbowSetpoint = 500;
-            ShoulderSetpoint = -916;
-            WristSetpoint = 145000;
+            ElbowSetpoint = 100;
+            ShoulderSetpoint = 0;
+            WristSetpoint = 74400;
             
         }   
         
-        // Fingerstop is false if at zero point
-        if (Robot.fingers_sub.getFingerStop()) {
-            Robot.fingers_sub.moveFingers(.75);
-        }
-
         // Start moving wrist and elbow
-        Robot.wrist_sub.setSetpoint(WristSetpoint);
-        Robot.wrist_sub.enable();
+        //Robot.wrist_sub.setSetpoint(WristSetpoint);
+        //Robot.wrist_sub.enable();
+        Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
+        Robot.shoulder_sub.enable();
         Robot.elbow_sub.setSetpoint(ElbowSetpoint);
         Robot.elbow_sub.enable();
         ElbowPID = false;
         ShoulderPID = false;
         FingerPID = false;
-
+        WristPID = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+
+        // Fingerstop is false if at zero point
+        if (Robot.fingers_sub.getFingerStop()) {
+                Robot.fingers_sub.moveFingers(.75);
+        } else {
+            Robot.fingers_sub.stopFingers();
+            FingerPID = true;
+        }
 
         if (Math.abs(ShoulderSetpoint-Robot.shoulder_sub.getShoulderEncoderCount())<20) {
             Robot.shoulder_sub.disable();
@@ -91,16 +97,19 @@ public class PreHatchPickup extends Command {
             Robot.elbow_sub.disable();
             ElbowPID=true;
             
-            Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
-            Robot.shoulder_sub.enable();
+            //Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
+            //Robot.shoulder_sub.enable();
 
     
         }
+        if (Math.abs(WristSetpoint-Robot.wrist_sub.getEncoder())<2000) {
+           // Robot.wrist_sub.disable();
+            WristPID=true;
+            
+            //Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
+            //Robot.shoulder_sub.enable();
 
-        if (!Robot.fingers_sub.getFingerStop()) {
-            //fingers are now all the way closed
-            Robot.fingers_sub.stopFingers();
-            FingerPID = true;
+    
         }
     }
 
@@ -108,7 +117,7 @@ public class PreHatchPickup extends Command {
     @Override
     protected boolean isFinished() {
 
-        if (ShoulderPID && ElbowPID && FingerPID) {
+        if (ShoulderPID && ElbowPID && FingerPID & WristPID) {
             return true;
         }
         else return false;
@@ -120,7 +129,8 @@ public class PreHatchPickup extends Command {
 
         Robot.shoulder_sub.disable();
         Robot.elbow_sub.disable();
-        Robot.fingers_sub.ResetFingers();
+        //Robot.fingers_sub.ResetFingers();
+        Robot.fingers_sub.stopFingers();
         System.out.print("Complete PreHatchPickup Command\n");
     }
 

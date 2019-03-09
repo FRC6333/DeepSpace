@@ -41,6 +41,7 @@ public class GrabHatch extends Command {
         FingerPID = false;
         Robot.ballFlag = false;
 
+        
     }
 
     // Called repeatedly when this Command is scheduled to run

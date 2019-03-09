@@ -29,6 +29,7 @@ public class PreRocket1 extends Command {
 
     private boolean ElbowPID;
     private boolean ShoulderPID;
+    private boolean WristPID;
 
     public PreRocket1() {
 
@@ -43,8 +44,10 @@ public class PreRocket1 extends Command {
         Robot.elbow_sub.disable();
         Robot.fingers_sub.disable();
         Robot.shoulder_sub.disable();
+        //
         Robot.wrist_sub.disable();
 
+       // Robot.wrist_sub.moveWrist(0.1);
         // First Check state of BallHatchButton
         // Then define the setpoints
         // Then start the movement
@@ -75,14 +78,15 @@ public class PreRocket1 extends Command {
         // In this case we are going to move the wrist out of way first because it 
         // tends to smash things if we don't
 
-        Robot.wrist_sub.setSetpoint(WristSetpoint);
-        Robot.wrist_sub.enable();
+        //Robot.wrist_sub.setSetpoint(WristSetpoint);
+        //Robot.wrist_sub.enable();
         Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
         Robot.shoulder_sub.enable();
         Robot.elbow_sub.setSetpoint(ElbowSetpoint);
         Robot.elbow_sub.enable();
         ElbowPID = false;
         ShoulderPID = false;
+        WristPID =false;
         }
 
     // Called repeatedly when this Command is scheduled to run
@@ -100,7 +104,7 @@ public class PreRocket1 extends Command {
     
         if (Math.abs(ElbowSetpoint-Robot.elbow_sub.getElbowEncoderCount())<20) {
 
-            Robot.elbow_sub.disable();
+           // Robot.elbow_sub.disable();
             ElbowPID=true;
             
             Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
@@ -108,13 +112,20 @@ public class PreRocket1 extends Command {
 
     
         }
+        if (Math.abs(WristSetpoint-Robot.wrist_sub.getEncoder() )<50) {
+            
+            //Robot.wrist_sub.disable();
+            WristPID=true;
+    
+        }
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
       
-        if (ShoulderPID && ElbowPID) {
+        if (ShoulderPID && ElbowPID && WristPID) {
             
             return true;
         }

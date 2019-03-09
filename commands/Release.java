@@ -57,7 +57,7 @@ public class Release extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (Math.abs(fingersSetpoint-Robot.fingers_sub.getEncoder())<15000) {
+        if (Math.abs(fingersSetpoint-Robot.fingers_sub.getEncoder())<1000) {
                 return true;
         }
         return false;

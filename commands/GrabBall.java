@@ -34,15 +34,13 @@ public class GrabBall extends Command {
     protected void initialize() {
         setInterruptible(true);
         
-        Robot.wrist_sub.setSetpoint(WristSetPoint);
-        Robot.wrist_sub.enable();
         Robot.elbow_sub.setSetpoint(ElbowSetPoint);
         Robot.elbow_sub.enable();
 
         
     
-        Robot.fingers_sub.setSetpoint(FingerSetpoint);
-        Robot.fingers_sub.enable();
+       // Robot.fingers_sub.setSetpoint(FingerSetpoint);
+       // Robot.fingers_sub.enable();
         Robot.ballFlag = true;
     
         /*
@@ -66,6 +64,8 @@ public class GrabBall extends Command {
         
         
         if (Math.abs(ElbowSetPoint-Robot.elbow_sub.getElbowEncoderCount())< 50) { 
+            Robot.wrist_sub.setSetpoint(WristSetPoint);
+            Robot.wrist_sub.enable();
             return true;
         } else {
             return false;

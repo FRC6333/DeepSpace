@@ -26,6 +26,7 @@ public class PreCargo extends Command {
     private int WristSetpoint;
     private boolean ElbowPID;
     private boolean ShoulderPID;
+    private boolean WristPID;
 
     public PreCargo() {
         
@@ -44,8 +45,9 @@ public class PreCargo extends Command {
         Robot.elbow_sub.disable();
         Robot.fingers_sub.disable();
         Robot.shoulder_sub.disable();
-        Robot.wrist_sub.disable();
+        //Robot.wrist_sub.disable();
 
+        Robot.wrist_sub.moveWrist(0.1);
         // First Check state of BallHatchButton
         // Then define the setpoints
         // Then start the movement
@@ -63,19 +65,18 @@ public class PreCargo extends Command {
             ShoulderSetpoint = 0;
             WristSetpoint = 74419;
         }
-           /* Order of Arm Operations
-        *   1. Adjust Elbow
-        *   2. Adjust Wrist
-        *   3. Adjust Shoulder
-        */
-        Robot.wrist_sub.setSetpoint(WristSetpoint);
-        Robot.wrist_sub.enable();
+          
+        Robot.shoulder_sub.setSetpoint(ShoulderSetpoint);
+        Robot.shoulder_sub.enable();
+        //Robot.wrist_sub.setSetpoint(WristSetpoint);
+        //Robot.wrist_sub.enable();
         Robot.elbow_sub.setSetpoint(ElbowSetpoint);
         Robot.elbow_sub.enable();
         //Robot.elbow_sub.set_PID_Running(true);
         //Robot.shoulder_sub.set_PID_Running(true);
         ElbowPID = false;
         ShoulderPID = false;
+        WristPID = false;
         }
 
     // Called repeatedly when this Command is scheduled to run
@@ -104,6 +105,12 @@ public class PreCargo extends Command {
             
     
         }
+        if (Math.abs(WristSetpoint-Robot.wrist_sub.getEncoder() )<50) {
+            
+            //Robot.wrist_sub.disable();
+            WristPID=true;
+    
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -112,7 +119,7 @@ public class PreCargo extends Command {
         /*if (Robot.elbow_sub.get_PID_Status() || Robot.shoulder_sub.get_PID_Status()) return false;
         else return true;
 */
-        if (ShoulderPID && ElbowPID) {
+        if (ShoulderPID && ElbowPID && WristPID) {
             
             return true;
         }
@@ -131,5 +138,6 @@ public class PreCargo extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }

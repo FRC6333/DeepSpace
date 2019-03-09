@@ -42,12 +42,7 @@ public class GotoBall2 extends Command {
         Robot.fingers_sub.disable();
         Robot.shoulder_sub.disable();
         Robot.wrist_sub.disable();
-           /* Order of Arm Operations
-        *   1. Adjust Elbow
-        *   2. Adjust Wrist
-        *   3. Adjust Shoulder
-        */
-
+ 
         Robot.elbow_sub.setSetpoint(ElbowSetpoint);
         Robot.elbow_sub.enable();
         //Robot.elbow_sub.set_PID_Running(true);
@@ -96,6 +91,8 @@ public class GotoBall2 extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.wrist_sub.setSetpoint(WristSetpoint);
+            Robot.wrist_sub.enable();
         Robot.shoulder_sub.disable();
         Robot.elbow_sub.disable();
         System.out.print("Completed GotoBall2 Command\n");
@@ -105,5 +102,6 @@ public class GotoBall2 extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }
