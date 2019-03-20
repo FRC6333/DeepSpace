@@ -63,7 +63,7 @@ public class ResetEncoders extends Command {
         Robot.wrist_sub.ResetWrist();
         //while the fingers aren't at the stop, move them together
         while (Robot.fingers_sub.getFingerStop()){
-            Robot.fingers_sub.moveFingers(0.6);
+            Robot.fingers_sub.moveFingers(1.0);
             //System.out.print("Comand finger close running: ");
             //System.out.print(timeSinceInitialized());
             //System.out.print("\n");
@@ -106,6 +106,8 @@ public class ResetEncoders extends Command {
             Robot.fingers_sub.ResetFingers();
             return true;
         } else if (timeSinceInitialized() > 3.0) {
+            System.out.print("Reset Encoders running for: ");
+            System.out.println(timeSinceInitialized());
             return true;
         }
         else{
