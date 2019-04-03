@@ -40,7 +40,7 @@ public class Release extends Command {
 
         //Button is 'set' for ball and 'unset' for hatch
         if (Robot.ballFlag) {
-            fingersSetpoint = 500000;
+            fingersSetpoint = 450000;
             
         }
 
